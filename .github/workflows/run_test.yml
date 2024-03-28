@@ -33,5 +33,5 @@ jobs:
     steps:
       - name: result
         run: |
-          curl --location 'https://discord.com/api/webhooks/${{ secrets.WH_DISCORD }}' --header 'Content-Type: application/json' --data '{"content": "-\n$(cat test_results.txt)"}'
-          curl --location 'https://api.telegram.org/bot6984990599:${{ secrets.TG_TOKEN }}/sendMessage' --header 'Content-Type: application/json' --data '{"chat_id": 270756677, "text": "-\n$(cat test_results.txt)"}'
+          curl --location 'https://discord.com/api/webhooks/${{ secrets.WH_DISCORD }}' --header 'Content-Type: application/json' --data '{"content": "-\n$(cat test_result.txt)"}'
+          curl --location 'https://api.telegram.org/bot6984990599:${{ secrets.TG_TOKEN }}/sendMessage' --header 'Content-Type: application/json' --data '{"chat_id": 270756677, "text": "-\n$(cat test_result.txt)"}'
