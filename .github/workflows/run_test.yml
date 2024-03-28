@@ -1,0 +1,34 @@
+name: Light prices
+
+on:
+  schedule:
+    - cron: '* * * * *'
+
+jobs:
+  Test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12.1"
+      - name: Install Chrome
+        run: sudo apt-get install google-chrome-stable
+      - name: install dependencies
+        run: pip install -r requirements.txt
+      - name: run_test
+        run: pytest -v > test_result.txt
+        continue-on-error: true
+
+  publish-result:
+    runs-on: ubuntu-latest
+    needs: Test
+    name: Result publication
+    steps:
+      - name: result
+        run: |
+          curl --location 'https://discord.com/api/webhooks/${{ secrets.WH_DISCORD }}' --header 'Content-Type: application/json' --data '{"content": "-\n$(cat test_results.txt)"}'
+          curl --location 'https://api.telegram.org/bot6984990599:${{ secrets.TG_TOKEN }}/sendMessage' --header 'Content-Type: application/json' --data '{"chat_id": 270756677, "text": "-\n$(cat test_results.txt)"}'
