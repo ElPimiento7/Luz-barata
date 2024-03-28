@@ -35,6 +35,6 @@ jobs:
     steps:
       - name: result
         run: |
-          message=$(echo -e "Уведомление: Дешевая цена электроэнергии в интервалах: $(cat test_result.txt | grep 'Дешевая цена' | cut -d ':' -f 2-)\nУведомление: Дорогая цена электроэнергии в интервалах: $(cat test_result.txt | grep 'Дорогая цена' | cut -d ':' -f 2-)")
+          message=$(cat test_result.txt)
           curl --location 'https://discord.com/api/webhooks/${{ secrets.WH_DISCORD }}' --header 'Content-Type: application/json' --data "{\"content\": \"$message\"}"
           curl --location 'https://api.telegram.org/bot6984990599:${{ secrets.TG_TOKEN }}/sendMessage' --header 'Content-Type: application/json' --data "{\"chat_id\": 270756677, \"text\": \"$message\"}"
