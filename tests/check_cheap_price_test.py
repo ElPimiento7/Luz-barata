@@ -17,6 +17,7 @@ def send_notification(time_interval, price):
 @pytest.fixture
 def page():
     options = Options()
+    options.add_argument("--headless")
     driver = webdriver.Chrome(options=options)
     driver.get("https://tarifasgasluz.com/comparador/precio-kwh")
     yield driver
@@ -24,6 +25,8 @@ def page():
 
 
 def extract_price_intervals(driver):
+    options = Options()
+    options.add_argument("--headless")
     html = driver.page_source
     soup = BeautifulSoup(html, "html.parser")
     time_intervals = soup.find_all(class_="template-tlh__colors--hours-info")
@@ -38,6 +41,8 @@ def extract_price_intervals(driver):
 
 
 def test_search_price_light(page):
+    options = Options()
+    options.add_argument("--headless")
     driver = page
     price_intervals = extract_price_intervals(page)
     cheap_threshold_price = 0.07
