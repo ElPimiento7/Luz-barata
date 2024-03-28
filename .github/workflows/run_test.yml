@@ -1,9 +1,6 @@
 name: Light prices
 
 on:
-  schedule:
-    - cron: '* * * * *'
-
   workflow_dispatch:
 
 
