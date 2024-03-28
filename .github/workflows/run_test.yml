@@ -23,7 +23,7 @@ jobs:
       - name: install dependencies
         run: pip install -r requirements.txt
       - name: run_test
-        run: pytest -v | tee test_result.txt
+        run: pytest -v | tee test_result.txt ls -l
         continue-on-error: true
 
   publish-result:
